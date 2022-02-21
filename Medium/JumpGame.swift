@@ -4,14 +4,6 @@ class Solution {
     func canJump(_ nums: [Int]) -> Bool {
         var current = 0
         
-        if (nums.first! == 0 && nums.count == 1) {
-            return true
-        }
-        
-        if nums.isEmpty || nums.first! == 0 {
-            return false
-        }
-        
         for num in nums {
             let currentNum = nums[current]
             
