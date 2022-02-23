@@ -2,6 +2,18 @@
 
 class Solution {
     func canJump(_ nums: [Int]) -> Bool {
+        
+//         var currentIndex = nums.count - 1
+//         var i = nums.count - 1
+//         for num in nums.reversed() {
+//             if i + num >= currentIndex {
+//                 currentIndex = i
+//             }
+//             i -= 1
+//         }
+        
+//         return currentIndex == 0 ? true : false
+        
         var current = 0
         
         for num in nums {
