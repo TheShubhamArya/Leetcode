@@ -11,37 +11,33 @@ class Solution {
         var lastUsed = ""
         
         while a != 0 || b != 0 || c != 0 {
-            
             if useHighest {
-                // If letter is highest and was not used last
                 if a >= b && a >= c && lastUsed != "a"{
-                    (output, a, lastUsed) = createOutputString(with: "a", output, a, useHighest)
-                } else if b >= a && b >= c && lastUsed != "b"{ 
-                    (output, b, lastUsed) = createOutputString(with: "b", output, b, useHighest)
+                    lastUsed = createOutputString(with: "a", &output, &a, useHighest)
+                } else if b >= a && b >= c && lastUsed != "b"{
+                    lastUsed = createOutputString(with: "b", &output, &b, useHighest)
                 } else if c >= a && c >= b && lastUsed != "c"{
-                    (output, c, lastUsed) = createOutputString(with: "c", output, c, useHighest)
+                    lastUsed = createOutputString(with: "c", &output, &c, useHighest)
                 } else {
                     break
                 }
                 
             } else {
-                // If letter is second highest AND greater than 0 AND was not used last
-                if ((a >= b && a <= c) || (a >= c && a <= b)) && a > 0 && lastUsed != "a"{ 
-                    (output, a, lastUsed) = createOutputString(with: "a", output, a, useHighest)
+                
+                if ((a >= b && a <= c) || (a >= c && a <= b)) && a > 0 && lastUsed != "a"{
+                    lastUsed = createOutputString(with: "a", &output, &a, useHighest)
                 } else if ((b >= c && b <= a) || (b >= a && b <= c)) && b > 0 && lastUsed != "b"{
-                    (output, b, lastUsed) = createOutputString(with: "b", output, b, useHighest)
+                    lastUsed = createOutputString(with: "b", &output, &b, useHighest)
                 } else if ((c >= a && c <= b) || (c >= b && c <= a)) && c > 0 && lastUsed != "c"{
-                    (output, c, lastUsed) = createOutputString(with: "c", output, c, useHighest)
-                } 
-                // When one letter is greater than 0 while others are zero and that letter is not last used
-                else if a != 0 && b == 0 && c == 0 && lastUsed != "a" {
-                    (output, a, lastUsed) = createOutputString(with: "a", output, a, useHighest)
+                    lastUsed = createOutputString(with: "c", &output, &c, useHighest)
+                } else if a != 0 && b == 0 && c == 0 && lastUsed != "a" {
+                    lastUsed = createOutputString(with: "a", &output, &a, useHighest)
                      break
                 } else if b != 0 && a == 0 && c == 0 && lastUsed != "b" {
-                    (output, b, lastUsed) = createOutputString(with: "b", output, b, useHighest)
+                    lastUsed = createOutputString(with: "b", &output, &b, useHighest)
                      break
                 } else if a == 0 && b == 0 && c != 0 && lastUsed != "c" {
-                    (output, c, lastUsed) = createOutputString(with: "c", output, c, useHighest)
+                    lastUsed = createOutputString(with: "c", &output, &c, useHighest)
                      break
                 }
                 
@@ -53,9 +49,7 @@ class Solution {
         return output
     }
     
-    func createOutputString(with letter: String,_ output: String,_ num: Int,_ high: Bool) -> (String, Int, String) {
-        var output = output
-        var num = num
+    func createOutputString(with letter: String,_ output: inout String,_ num: inout Int,_ high: Bool) -> String {
         if num >= 2 && high {
             output.append(letter)
             output.append(letter)
@@ -64,6 +58,6 @@ class Solution {
             output.append(letter)
             num -= 1
         }
-        return (output, num, letter)
+        return letter
     }
 }
