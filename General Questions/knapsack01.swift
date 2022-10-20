@@ -23,16 +23,14 @@ func knapsack(_ v:[Int],_ w:[Int], maxWeight: Int) -> [Int] {
     
     // Finding numbers chosen to get the weight
     while i > 0 && j > 0 && currCost > 0 {
-        if C[i-1][j] != C[i][j] {
-            currCost -= v[i-1]
-            if j >= 0 && currCost >= 0 {
-                output[i-1] = 1
-            }
-            i = i - 1
+        if C[i-1][j] != C[i][j] { // if the two values are not equal, then current value contributes to the sum
+            currCost -= v[i-1]    // subtract the value at that index from the current cost
+            output[i-1] = 1       // Turn that index in the output to 1
+            i = i - 1             // go to previous row now
             while currCost != C[i][j] {
-                j -= 1
+                j -= 1            // go the column in the previous row that has the current cost value in it
             }
-        } else {
+        } else { // if C[i][j] has a value on the previous column, then the current value did not contribute to the sum of values. So move to the previous row.
             i = i - 1
         }
     }
@@ -41,7 +39,7 @@ func knapsack(_ v:[Int],_ w:[Int], maxWeight: Int) -> [Int] {
 
 let weights = [2,3,4,5,10,18]
 let values =  [1,2,5,6,7,20]
-let valuesSelected = knapsack(values, weights,maxWeight: 12)
+let valuesSelected = knapsack(values, weights,maxWeight: 20)
 
 // prints the numbers to get desired weight
 for (a,b) in zip(values, valuesSelected) {
@@ -49,3 +47,4 @@ for (a,b) in zip(values, valuesSelected) {
         print(a)
     }
 }
+
